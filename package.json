@@ -4,13 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "dev:windows":"set NODE_ENV=local&&npm run dev",
+    "dev:test":"set NODE_ENV=test&&npm run dev",
+    "start": "node index.js",
+    "db": "node scripts/db",
+    "db:local":"set NODE_ENV=local&&node scripts/db",
+    "db:test":"set NODE_ENV=test&&node scripts/db"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ngneat/falso": "^6.1.0",
+    "cookie-parser": "^1.4.6",
+    "cookieparser": "^0.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "slonik": "^31.1.0",
+    "uuid": "^8.3.2"
   }
 }
