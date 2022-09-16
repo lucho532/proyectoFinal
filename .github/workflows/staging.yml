@@ -3,7 +3,7 @@ name: (staging) miTransporte to Railiway
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
