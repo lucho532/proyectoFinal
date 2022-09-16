@@ -8,7 +8,7 @@
     "dev:test":"NODE_ENV=test nodemon index.js",
     "dev:windows":"set NODE_ENV=local&&npm run dev",
     "dev:test:windows":"set NODE_ENV=test&&npm run dev",
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "db": "node scripts/db",
     "db:local":"set NODE_ENV=local&&node scripts/db",
     "db:test":"set NODE_ENV=test&&node scripts/db"
