@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/lucho532/proyectoFinal/compare/v1.1.0...v1.2.0) (2022-09-17)
+
+
+### Features
+
+* added prod workflow ([054eea3](https://github.com/lucho532/proyectoFinal/commit/054eea3efb79860a69d90cbf0c9e2f71ee6b2a86))
+* anex dorp tablet if exists ([e5b2466](https://github.com/lucho532/proyectoFinal/commit/e5b2466fd8cb46a870a947c951fd74956cbc66b6))
+
 ## 1.1.0 (2022-09-17)
 
 
