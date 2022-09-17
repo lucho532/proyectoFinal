@@ -4,17 +4,17 @@ const {
   randFullName,
   randUser,
   randVehicle,
-
   randPassword,
 } = require("@ngneat/falso");
 
 const create = async (db) => {
   await db.query(sql`
- 
-
+  DROP TABLE IF EXISTS users ;
+  DROP TYPE IF EXISTS role ;
   CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-  
+  CREATE TYPE role AS ENUM 
+('admin', 'conductor', 'empleado');
 
 
   CREATE TABLE IF NOT EXISTS users (
@@ -30,6 +30,7 @@ const create = async (db) => {
     matricula VARCHAR(250)NULL,
     role role NOT NULL
   );
+  
   `);
 };
 
