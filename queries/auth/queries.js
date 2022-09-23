@@ -1,13 +1,33 @@
 const { sql } = require("slonik");
-const selectAllUsers = () => {
-  return sql`
-        SELECT * FROM users
-    `;
-};
-const selectOneUser = ({ email }) => {
+
+const selectFullUser = ({ email }) => {
   return sql`
         SELECT * FROM users
         WHERE email = ${email}
+    `;
+};
+
+const insertUser = ({
+  dni,
+  nombre,
+  apellido,
+  email,
+  password,
+  telefono,
+  direccion,
+  barrio,
+  matricula,
+  role,
+}) => {
+  return sql`
+    INSERT INTO users(
+      dni, nombre, apellido, email, password, telefono,direccion,barrio, matricula,role)
+       VALUES (${dni},${nombre},${apellido},${email},${password},${telefono},${direccion},${barrio},${matricula},${role});
+       `;
+};
+const selectAllUsers = () => {
+  return sql`
+        SELECT * FROM users
     `;
 };
 
@@ -18,7 +38,8 @@ const deleteOneUser = ({ email }) => {
     `;
 };
 module.exports = {
+  insertUser,
   selectAllUsers,
-  selectOneUser,
+  selectFullUser,
   deleteOneUser,
 };

@@ -1,9 +1,59 @@
 const {
+  insertUser,
   selectAllUsers,
-  selectOneUser,
+  selectFullUser,
   deleteOneUser,
-} = require("../../queries/auth/queries");
+} = require("./queries");
+
 const { queryCatcher } = require("../utils");
+
+const getFullUser =
+  (db) =>
+  async ({ email }) => {
+    return await queryCatcher(
+      db.maybeOne,
+      "getFullUser"
+    )(selectFullUser({ email }));
+  };
+const createUser =
+  (db) =>
+  async ({
+    dni,
+    nombre,
+    apellido,
+    email,
+    password,
+    telefono,
+    direccion,
+    barrio,
+    matricula,
+    role,
+  }) => {
+    const user = await getFullUser(db)({ email });
+    console.log(user);
+    if (user.data)
+      return {
+        ok: false,
+        code: "duplication",
+      };
+    return await queryCatcher(
+      db.query,
+      "createUserQ"
+    )(
+      insertUser({
+        dni,
+        nombre,
+        apellido,
+        email,
+        password,
+        telefono,
+        direccion,
+        barrio,
+        matricula,
+        role,
+      })
+    );
+  };
 
 const getAllUser = (db) => async () => {
   console.info("> db: ", db);
@@ -16,14 +66,6 @@ const getAllUser = (db) => async () => {
     selectAllUsers()
   );
 };
-const getUser =
-  (db) =>
-  async ({ email }) => {
-    return await queryCatcher(
-      db.maybeOne,
-      "getOneUser"
-    )(selectOneUser({ email }));
-  };
 
 const deleteUser =
   (db) =>
@@ -32,6 +74,7 @@ const deleteUser =
   };
 module.exports = {
   getAllUser,
-  getUser,
+  createUser,
+  getFullUser,
   deleteUser,
 };

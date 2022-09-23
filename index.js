@@ -11,6 +11,7 @@ const main = async () => {
   app.use(express.json());
   app.use(cookieParser());
   app.use("/", require("./services")(db));
+
   app.use((_, __, next) => {
     next(errors[404]);
   });
@@ -28,5 +29,3 @@ const main = async () => {
 };
 
 main();
-
-
