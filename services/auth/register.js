@@ -1,5 +1,7 @@
 const { createUser } = require("../../queries/auth");
-const { encrypt } = require("../../utils/hash");
+const { hash, serialize } = require("../../utils");
+const { register } = require("../../errors/auth");
+const errors = require("../../errors/commons");
 
 module.exports = (db) => async (req, res, next) => {
   const {
@@ -20,14 +22,17 @@ module.exports = (db) => async (req, res, next) => {
     nombre,
     apellido,
     email,
-    password: await encrypt(password),
+    password: await hash.encrypt(password),
     telefono,
     direccion,
     barrio,
     matricula,
     role,
   });
-  console.log(queryResult);
+
+  if (!queryResult.ok) return next(register[queryResult.code] || errors[500]);
+  serialize(res, { email: queryResult.data.email });
+
   res.status(200).json({
     succes: true,
   });

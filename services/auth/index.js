@@ -1,9 +1,19 @@
 const router = require("express").Router();
+const { authorizer, checker } = require("../../middlewares");
+
+const forms = {
+  register: ["email", "password"],
+  login: ["email", "password"],
+};
 
 module.exports = (db) => {
-  router.post("/register", require("./register")(db));
-  router.get("/get-all", require("./get-all")(db));
-  router.get("/getFullUser", require("./getFullUser")(db));
+  router.post(
+    "/register",
+    checker(...forms.register),
+    require("./register")(db)
+  );
+  router.post("/login", checker(...forms.register), require("./login")(db));
+  router.post("/logout", authorizer, require("./logout")());
 
   return router;
 };

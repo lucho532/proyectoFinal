@@ -30,7 +30,7 @@ const createUser =
     role,
   }) => {
     const user = await getFullUser(db)({ email });
-    console.log(user);
+
     if (user.data)
       return {
         ok: false,
@@ -72,9 +72,38 @@ const deleteUser =
   async ({ email }) => {
     return await queryCatcher(db.query, "deleteUser")(deleteOneUser({ email }));
   };
+
+const getCorrectUser =
+  (db) =>
+  async ({ email, compareFn }) => {
+    const user = await getFullUser(db)({ email });
+
+    if (!user.data) {
+      return {
+        ok: false,
+        code: "unknown",
+      };
+    }
+
+    const isPasswordCorrect = await compareFn(user.data.password);
+    console.info(">compare fn=", isPasswordCorrect);
+
+    if (!isPasswordCorrect) {
+      return {
+        ok: false,
+        code: "unknown",
+      };
+    }
+
+    return {
+      ok: true,
+      data: { email: user.data.email },
+    };
+  };
 module.exports = {
   getAllUser,
   createUser,
   getFullUser,
   deleteUser,
+  getCorrectUser,
 };
