@@ -10,7 +10,7 @@ const main = async () => {
   const app = express();
 
   app.use(express.json());
-  app.use(cors(options));
+  app.use(cors());
   app.use(cookieParser());
   app.use("/", require("./services")(db));
 
