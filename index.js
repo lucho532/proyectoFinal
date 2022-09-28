@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const options = require("./configs/cors");
 const cookieParser = require("cookie-parser");
 const errors = require("./errors/commons");
 const { PORT } = require("./environments");
@@ -9,8 +10,8 @@ const main = async () => {
   const db = await require("./configs/db");
   const app = express();
 
+  app.use(cors(options));
   app.use(express.json());
-  app.use(cors());
   app.use(cookieParser());
   app.use("/", require("./services")(db));
 
